@@ -1,6 +1,7 @@
 window.onload = (event) => {
     $('.tela_final').hide();
 
+    const audio = new Audio();
     let selected = 0;
 
     $('.start').click(function () {
@@ -12,6 +13,9 @@ window.onload = (event) => {
         let card2 = $('.selected')[1]
 
         if (card1.classList[1] == card2.classList[1]) {
+            audio.setAttribute('src', 'assets/audio/acerto.mp3');
+            audio.load();
+            audio.play();
             $('.selected').addClass('correto');
             $('.correto').removeClass('selected');
         } else {
@@ -19,6 +23,9 @@ window.onload = (event) => {
             // enquanto o feedback esta ativo
             $('.card').addClass('checking');
             $('.reveal-btn').addClass('checking');
+            audio.setAttribute('src', 'assets/audio/erro.mp3');
+            audio.load();
+            audio.play();
             $('.selected').addClass('errado');
             setTimeout(function () {
                 $('.card').removeClass('checking');
@@ -32,10 +39,6 @@ window.onload = (event) => {
             $('.tela_final').fadeIn();
         }
     }
-
-    $('.reveal-btn').click(function(){
-        $('.card:not(.correto)').toggleClass('selected')
-    })
 
     $('.start-again').click(function(){
         resetCards()
