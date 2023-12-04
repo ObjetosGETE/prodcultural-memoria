@@ -18,11 +18,11 @@ window.onload = (event) => {
             // a classe checking serve pra proibir selecionar cartas 
             // enquanto o feedback esta ativo
             $('.card').addClass('checking');
-            // $('.reveal-btn').addClass('checking');
+            $('.reveal-btn').addClass('checking');
             $('.selected').addClass('errado');
             setTimeout(function () {
                 $('.card').removeClass('checking');
-                // $('.reveal-btn').removeClass('checking');
+                $('.reveal-btn').removeClass('checking');
                 $('.selected').removeClass('errado');
                 $('.selected').removeClass('selected');
             }, 1500)
@@ -33,11 +33,16 @@ window.onload = (event) => {
         }
     }
 
+    $('.reveal-btn').click(function(){
+        $('.card:not(.correto)').toggleClass('selected')
+    })
+
     $('.start-again').click(function(){
         resetCards()
         selected = 0;
         $('.tela_final').fadeOut();
         $('.correto').removeClass('correto')
+        $('.card').shuffle();
         setTimeout(function(){$('.tela_inicial').fadeIn()}, 500);
     })
 
@@ -62,3 +67,12 @@ window.onload = (event) => {
         )
     }
 }
+
+jQuery.fn.shuffle = function () {
+    var j;
+    for (var i = 0; i < this.length; i++) {
+        j = Math.floor(Math.random() * this.length);
+        $(this[i]).before($(this[j]));
+    }
+    return this;
+};
